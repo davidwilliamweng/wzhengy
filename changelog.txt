@@ -12,3 +12,5 @@ date 4/9 David
 Adding more functions in. More music choices.
 Monday, 8/April david
 adding comment to all codes as required
+4/9 david
+music function added
