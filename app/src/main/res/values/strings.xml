@@ -73,7 +73,7 @@
     <string name="pref_alarms_have_same_ringtone_switch_title">Alarms have the same ringtone</string>
     <string name="pref_alarms_have_same_ringtone_switch_summary">Avoid configuring ringtone for every single alarm.</string>
     <string name="pref_ringtone_select_title">Alarm ringtone</string>
-    <string name="pref_ringtone_select_default_summary">Tap to select ringtone</string>
+    <string name="pref_ringtone_select_default_summary">+ Tap to select ringtone</string>
     <string name="pref_ringtone_select_selected_summary">Chosen ringtone: %s</string>
 
     <string name="pref_ring_duration_title">Ring duration</string>
@@ -129,6 +129,7 @@
     <string name="alarm_ringtone">Alarm ringtone</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="select">Select</string>
     <string name="wakeupat_view_description">To wake up at %1$s fully rested you should fall asleep at one of the listed hours below.</string>
     <string name="tap_to_set_alarm">Tap to set alarm</string>
     <string name="tap_to_edit_press_and_hold_to_delete">Tap to edit, press and hold to delete</string>

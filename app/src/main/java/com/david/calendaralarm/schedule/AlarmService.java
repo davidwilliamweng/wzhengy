@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.david.calendaralarm.R;
@@ -36,8 +37,7 @@ public class AlarmService extends Service {
     private MediaPlayer player;
     private Vibrator vibrator;
     private float volumeLevel = 0.1f;
-    private String alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            .toString();
+    private String alarmRingtone;
     private String alarmId = "";
 
     private Handler handler = new Handler();
@@ -138,6 +138,9 @@ public class AlarmService extends Service {
         try {
             if (isVibrateEnabled()) {
                 postVibrationHandler();
+            }
+            if(TextUtils.isEmpty(alarmRingtone)){
+                alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
             }
             player.setDataSource(this, Uri.parse(alarmRingtone));
             player.setLooping(true);

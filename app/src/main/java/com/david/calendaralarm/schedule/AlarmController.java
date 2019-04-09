@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.david.calendaralarm.data.pojo.Alarm;
@@ -68,10 +69,12 @@ public class AlarmController {
 
     private PendingIntent getAlarmPendingIntent(Alarm alarm, int flag) {
         String alarmId = alarm.getId();
-//        String ringtone = alarm.getRingtone();
+        String ringtone = alarm.getRingtone();
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
         alarmIntent.putExtra(Const.KEYS.ALARM_ID, alarmId);
-//        alarmIntent.putExtra(Const.KEYS.RINGTONE_ID, ringtone);
+        if(!TextUtils.isEmpty(ringtone)) {
+            alarmIntent.putExtra(Const.KEYS.RINGTONE_ID, ringtone);
+        }
 
         int serviceId = getMostSignificantBits(alarmId);
 

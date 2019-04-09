@@ -13,6 +13,7 @@ public class Alarm extends RealmObject {
     private String label;
     private String time;
     private String days;
+    private String ringtone;
 
     public String getId() {
         return id;
@@ -46,6 +47,14 @@ public class Alarm extends RealmObject {
         this.days = days;
     }
 
+    public String getRingtone() {
+        return ringtone;
+    }
+
+    public void setRingtone(String ringtone) {
+        this.ringtone = ringtone;
+    }
+
     @Override
     public String toString() {
         return "Alarm{" +
@@ -53,6 +62,7 @@ public class Alarm extends RealmObject {
                 ", label='" + label + '\'' +
                 ", time='" + time + '\'' +
                 ", days='" + days + '\'' +
+                ", ringtone='" + ringtone + '\'' +
                 '}';
     }
 }

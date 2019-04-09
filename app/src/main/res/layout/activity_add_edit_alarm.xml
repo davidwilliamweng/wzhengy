@@ -62,19 +62,6 @@
                 android:layout_marginBottom="@dimen/marginItemsInSectionSmall"
                 android:timePickerMode="spinner"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/marginBetweenTextHorizontal"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/label"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/marginBetweenTextHorizontal"
-                android:background="@drawable/divider" />
-
             <EditText
                 android:id="@+id/etLabel"
                 android:layout_width="match_parent"
@@ -85,7 +72,15 @@
                 android:textColor="@color/secondary_text"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/add_label_hint"
-                android:layout_marginBottom="@dimen/marginItemsInSectionSmall" />
+                android:layout_marginBottom="@dimen/marginBetweenTextHorizontal" />
+
+            <TextView
+                android:id="@+id/tvRingtone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/circleButtonsBackgroundSize"
+                android:gravity="center"
+                android:text="@string/pref_ringtone_select_default_summary"
+                android:layout_marginBottom="@dimen/marginBetweenTextHorizontal"/>
 
             <TextView
                 android:layout_width="match_parent"

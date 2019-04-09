@@ -1,7 +1,11 @@
 package com.david.calendaralarm.tabs.addalarm.alarm;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,18 +27,18 @@ import java.util.UUID;
 
 public final class AddEditAlarmActivity extends AppCompatActivity {
 
-    TextView tvCancel;
-    TextView tvTitle;
-    TextView tvSave;
-    TimePicker timePicker;
-    EditText etLabel;
-    CheckBox cbMon;
-    CheckBox cbTues;
-    CheckBox cbWed;
-    CheckBox cbThurs;
-    CheckBox cbFri;
-    CheckBox cbSat;
-    CheckBox cbSun;
+    private TextView tvCancel;
+    private TextView tvRingtone;
+    private TextView tvSave;
+    private TimePicker timePicker;
+    private EditText etLabel;
+    private CheckBox cbMon;
+    private CheckBox cbTues;
+    private CheckBox cbWed;
+    private CheckBox cbThurs;
+    private CheckBox cbFri;
+    private CheckBox cbSat;
+    private CheckBox cbSun;
     private TextView tvDel;
 
     private Alarm alarm;
@@ -46,6 +50,7 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
     }
     private STATE state;
     private String oldtime;
+    private String ringtoneuri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +67,7 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
     @TargetApi(23)
     private void setupUi(){
         tvCancel = findViewById(R.id.tvCancel);
-        tvTitle = findViewById(R.id.tvTitle);
+        tvRingtone = findViewById(R.id.tvRingtone);
         tvSave = findViewById(R.id.tvSave);
         timePicker = findViewById(R.id.timePicker);
         etLabel = findViewById(R.id.etLabel);
@@ -80,19 +85,26 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
         alarm = MyApplication.getInstance().getAlarm();
         state = STATE.ADD;
         tvDel.setVisibility(View.GONE);
+        // If it's editing status
         if(alarm != null){
             tvDel.setVisibility(View.VISIBLE);
             state = STATE.EDIT;
             etLabel.setText(alarm.getLabel());
             oldtime = alarm.getTime();
             DateTime dt = DateTime.parse(oldtime);
+             // New Api
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 hour = dt.getHourOfDay();
                 minute = dt.getMinuteOfHour();
                 timePicker.setHour(hour);
                 timePicker.setMinute(minute);
             }
+            if(!TextUtils.isEmpty(alarm.getRingtone())){
+                Ringtone ringtone = RingtoneManager.getRingtone(this, Uri.parse(alarm.getRingtone()));
+                tvRingtone.setText(ringtone.getTitle(this));
+            }
             String days = alarm.getDays();
+            // Set alarm days
             if(!TextUtils.isEmpty(days) && days.contains(",")){
                 String[] array = days.split(",");
                 for (int i = 0; i < array.length; i++){
@@ -147,7 +159,7 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
                 alarm.setLabel(etLabel.getText().toString().equals("") ? "Good morning ~" : etLabel.getText().toString());
 
                 Intent intent = getIntent();
-                // Must be add opearation in here.
+                // If it's a calendar alarm clock
                 if(intent != null && !TextUtils.isEmpty(intent.getStringExtra("date"))){
                     alarm.setDays(intent.getStringExtra("date"));
                     String[] datearray = intent.getStringExtra("date").split("-");
@@ -172,6 +184,7 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
                     alarm.setTime(ddd);
                     Log.i("hel:", "set alarm:" + ddd);
                 }else{
+                    // If it's an edit alarm clock
                     if(state == STATE.EDIT){
                         DateTime dt = DateTime.parse(oldtime);
                         String ddd = DateTime.now().withYear(dt.getYear())
@@ -191,6 +204,7 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
                         Log.i("hel:", "set alarm:" + ddd);
                     }
 
+                    // Save alarm days
                     StringBuffer sb = new StringBuffer();
                     if(cbMon.isChecked()){
                         sb.append("Mon,");
@@ -218,6 +232,9 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
                     }
                     alarm.setDays(sb.toString());
                 }
+                if(!TextUtils.isEmpty(ringtoneuri)) {
+                    alarm.setRingtone(ringtoneuri);
+                }
 
                 alarmDAO.saveIfNotDuplicate(alarm);
                 alarmController.setAlarm(alarm);
@@ -242,6 +259,44 @@ public final class AddEditAlarmActivity extends AppCompatActivity {
                 finish();
             }
         });
+        tvRingtone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectRingtoneDialog();
+            }
+        });
+    }
+
+    /**
+     * Show system ringtone setting dialog
+     */
+    private void showSelectRingtoneDialog() {
+        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE,
+                getString(R.string.pref_ringtone_select_title));
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+        startActivityForResult(intent, 1);
+    }
+
+    /**
+     * Callback when selected system ringtone
+     * @param requestCode The integer request code originally supplied to startActivityForResult(),
+     *                    allowing you to identify who this result came from.
+     * @param resultCode The integer result code returned by the child activity through its setResult().
+     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            if (uri != null) {
+                ringtoneuri = uri.toString();
+                Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
+                String title = ringtone.getTitle(this);
+                tvRingtone.setText(title);
+            }
+        }
     }
 
     @Override
