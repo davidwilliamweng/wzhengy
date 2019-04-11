@@ -13,3 +13,7 @@ created
 - Adding more functions in. More music choices.
 - music function added
  
+# Week 6, Thursday 11/April [Henry]
+- Good to see some progress. 
+- I still need more function comments (before every function), to make it clear what the function is suppose to do, and any information about parameters/return type, as appropriate. [Henry]
+
