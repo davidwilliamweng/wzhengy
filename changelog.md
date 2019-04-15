@@ -19,6 +19,6 @@ created
 
 # Week 7, Monday 15/April [Henry]
 - Progress missing of late. I see to be logging into your repo more than each of you are.. which shouldn't be the case :) [Henry]
-- Your readme needs fixing. The formatting is odd (look at it in github to render the markdown). And it doesn't say your names/SIDs, and other info we need to know who's project this is.
-
-
+- Your readme needs fixing. The formatting is odd (look at it in github to render the markdown). And it doesn't say your names/SIDs, and other info we need to know who's project this iweek 
+# Week 7, Monday 15/April [David]
+update read me.
