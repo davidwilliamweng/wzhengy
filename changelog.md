@@ -22,3 +22,5 @@ created
 - Your readme needs fixing. The formatting is odd (look at it in github to render the markdown). And it doesn't say your names/SIDs, and other info we need to know who's project this iweek 
 # Week 7, Monday 15/April [David]
 update read me.
+# Week 7, Monday 18/April [David]
+Adding comments to all coding include read me.
