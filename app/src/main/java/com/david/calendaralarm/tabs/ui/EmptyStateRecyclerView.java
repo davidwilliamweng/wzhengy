@@ -7,11 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.david.calendaralarm.R;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +26,9 @@ public class EmptyStateRecyclerView extends RecyclerView {
         super(context, attrs, defStyle);
     }
 
+    /**
+     * Observer base class for watching changes to an RecyclerView.Adapter.
+     */
     final @NotNull
     AdapterDataObserver observer = new AdapterDataObserver() {
         @Override public void onChanged() {
@@ -36,11 +36,21 @@ public class EmptyStateRecyclerView extends RecyclerView {
             checkIfEmpty();
         }
 
+        /**
+         * When new data is inserted
+         * @param positionStart position of RecyclerView.Adapter
+         * @param itemCount count RecyclerView.Adapter
+         */
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
             checkIfEmpty();
         }
 
+        /**
+         * When new data is removed
+         * @param positionStart position of RecyclerView.Adapter
+         * @param itemCount count RecyclerView.Adapter
+         */
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
             checkIfEmpty();
@@ -77,7 +87,12 @@ public class EmptyStateRecyclerView extends RecyclerView {
         }
     }
 
-    @Override public void setAdapter(@Nullable Adapter adapter) {
+    /**
+     * Set a new adapter to provide child views on demand.
+     * @param adapter The new adapter to set, or null to set no adapter.
+     */
+    @Override
+    public void setAdapter(@Nullable Adapter adapter) {
         final Adapter oldAdapter = getAdapter();
         if (oldAdapter != null) {
             oldAdapter.unregisterAdapterDataObserver(observer);

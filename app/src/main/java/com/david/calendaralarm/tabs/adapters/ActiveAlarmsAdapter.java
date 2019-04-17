@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.david.calendaralarm.R;
 import com.david.calendaralarm.data.pojo.Alarm;
 import com.david.calendaralarm.tabs.addalarm.alarm.AlarmInterface;
@@ -26,6 +27,12 @@ public class ActiveAlarmsAdapter extends RealmRecyclerViewAdapter<Alarm,
         this.alarmInterface = alarmInterface;
     }
 
+    /**
+     * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     @NonNull
     @Override
     public AlarmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,6 +40,11 @@ public class ActiveAlarmsAdapter extends RealmRecyclerViewAdapter<Alarm,
                 .inflate(R.layout.item_alarm, parent, false));
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     * @param alarmViewHolder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull AlarmViewHolder alarmViewHolder, final int position) {
         final Alarm alarm = getItem(position);
@@ -41,6 +53,9 @@ public class ActiveAlarmsAdapter extends RealmRecyclerViewAdapter<Alarm,
         }
     }
 
+    /**
+     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+     */
     public class AlarmViewHolder extends RecyclerView.ViewHolder {
 
         private Context context;
@@ -61,6 +76,10 @@ public class ActiveAlarmsAdapter extends RealmRecyclerViewAdapter<Alarm,
             this.context = itemView.getContext();
         }
 
+        /**
+         * instance view of the ViewHolder
+         * @param alarm data model
+         */
         public void bind(final Alarm alarm) {
             final String id = alarm.getId();
             ivIcon.setImageResource(R.drawable.ic_list_alarm_access_full_shape);
