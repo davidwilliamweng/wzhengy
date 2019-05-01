@@ -11,6 +11,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 
+// An object-oriented database interface of alarm.
 public class AlarmDAO {
 
     public AlarmDAO() {

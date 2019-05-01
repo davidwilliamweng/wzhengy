@@ -16,6 +16,9 @@ import org.joda.time.DateTime;
 
 import java.util.UUID;
 
+/**
+ * Alarm clock interface implementation class
+ */
 public class AlarmController {
 
     private Context context;

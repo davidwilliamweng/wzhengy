@@ -4,12 +4,14 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
+/**
+ * db model of alarm
+ */
 public class Alarm extends RealmObject {
 
     @PrimaryKey
     @Required
     private String id;
-
     private String label;
     private String time;
     private String days;

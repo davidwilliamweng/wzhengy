@@ -1,6 +1,5 @@
 package com.david.calendaralarm.schedule;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,8 +7,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -17,7 +14,12 @@ import com.david.calendaralarm.R;
 import com.david.calendaralarm.data.AlarmDAO;
 import com.david.calendaralarm.utils.AlarmContentUtils;
 import com.david.calendaralarm.utils.Const;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Display this page when the alarm clock rings
@@ -38,6 +40,108 @@ public class AlarmActivity extends AppCompatActivity {
         setAppTheme();
 
         setContentView(R.layout.activity_alarm);
+
+        String url = "http://dataservice.accuweather.com/currentconditions/v1/3497808/?apikey=mSrRYbkQmojoxxqCj81hcC4L3uiGwOwj";
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+        httpClient.get(url, null, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess(int statusCode, String content) {
+                if(statusCode==200)
+                {
+                    try {
+                        // return json data according to the interface to display the weather, temperature
+                        JSONArray data = new JSONArray(content);
+                        JSONObject info = data.getJSONObject(0);
+                        String weatherText = info.getString("WeatherText");
+                        TextView tv1 = findViewById(R.id.weather1);
+                        tv1.setText(weatherText);
+                        int tem = info.getJSONObject("Temperature").getJSONObject("Imperial").getInt("Value");
+                        TextView tv2 = findViewById(R.id.weather2);
+                        tv2.setText(tem + "°F");
+                        TextView tv0 = findViewById(R.id.weathericon);
+                        int weatherIcon = info.getInt("WeatherIcon");
+                        switch (weatherIcon){
+                            case 1:
+                            case 2:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.sunny));
+                                break;
+                            case 3:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.partly_cloudy));
+                                break;
+                            case 4:
+                            case 5:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.cloudy_s_sunny));
+                                break;
+                            case 6:
+                            case 7:
+                            case 8:
+                            case 33:
+                            case 34:
+                            case 35:
+                            case 36:
+                            case 37:
+                            case 38:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.cloudy));
+                                break;
+                            case 11:
+                            case 25:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.fog));
+                                break;
+                            case 12:
+                            case 18:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.rain));
+                                break;
+                            case 13:
+                            case 14:
+                            case 16:
+                            case 17:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.sunny_s_rain));
+                                break;
+                            case 15:
+                            case 41:
+                            case 42:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.thunderstorms));
+                                break;
+                            case 19:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.snow_light));
+                                break;
+                            case 20:
+                            case 21:
+                            case 43:
+                            case 44:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.sleet));
+                                break;
+                            case 22:
+                            case 23:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.snow));
+                                break;
+                            case 26:
+                            case 29:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.snow_s_rain));
+                                break;
+                            case 32:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.windy));
+                                break;
+                            case 39:
+                            case 40:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.rain_s_cloudy));
+                                break;
+                            default:
+                                tv0.setBackground(getResources().getDrawable(R.drawable.cloudy));
+                                break;
+                        }
+                    }catch (Exception ex){
+                    }
+                }
+            }
+
+        });
+
+
         currentHourTextView = findViewById(R.id.activityAlarmCurrentHour);
         findViewById(R.id.activityAlarmLayout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +156,7 @@ public class AlarmActivity extends AppCompatActivity {
         showCurrentHour();
         setupRingDuration();
         countDownRingDuration();
+
     }
 
     /**

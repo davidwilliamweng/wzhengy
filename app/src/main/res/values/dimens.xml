@@ -3,6 +3,8 @@
 
     <dimen name="paddingLayout">24dp</dimen>
 
+    <dimen name="textH4">32sp</dimen>
+    <dimen name="textH5">26sp</dimen>
     <dimen name="textH6">20sp</dimen>
     <dimen name="textBody1">16sp</dimen>
     <dimen name="textBody2">14sp</dimen>
@@ -32,7 +34,7 @@
     <dimen name="fabHeight">38dp</dimen>
     <dimen name="fabWidth">144dp</dimen>
 
-    <dimen name="activityAlarmCurrentHourTextSize">64sp</dimen>
+    <dimen name="activityAlarmCurrentHourTextSize">56sp</dimen>
     <dimen name="emptyListImageSize">64dp</dimen>
     <dimen name="marginBottomForDialog">8dp</dimen>
 </resources>
