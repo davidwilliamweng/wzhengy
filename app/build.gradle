@@ -28,6 +28,7 @@ android {
             testCoverageEnabled true
         }
     }
+	useLibrary 'org.apache.http.legacy'
 }
 
 realm {
