@@ -25,3 +25,5 @@ update read me.
 # Week 7, Monday 18/April [David]
 Adding comments to all coding include read me.
 futher plan for week 9: adding weather function, show weather when alarm runs.
+# Week 8, Thursday 18/April [David]
+adding weather function in but there is a bug when alarm runs.
