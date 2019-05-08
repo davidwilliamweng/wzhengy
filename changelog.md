@@ -27,3 +27,9 @@ Adding comments to all coding include read me.
 futher plan for week 9: adding weather function, show weather when alarm runs.
 # Week 8, Thursday 18/April [David]
 adding weather function in but there is a bug when alarm runs.
+
+# Week 9, Wednesday 8/May [Henry]
+- This file needs a lot more details, generally.
+- Make sure you go over everything in the Grading Criteria super carefully, to ensure you meet each point.
+
+
