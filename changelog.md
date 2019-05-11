@@ -35,4 +35,6 @@ adding weather function in but there is a bug when alarm runs.
 -Tried new solution of 
 	useLibrary 'org.apache.http.legacy' 
 # Week 9, Saterday 11/May [David]
-Weather function is fixed.
+Weather function is fixed. 
+# Week 9, Saterday 11/May [David]
+Read me is updated
