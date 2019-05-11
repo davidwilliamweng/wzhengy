@@ -34,6 +34,9 @@ adding weather function in but there is a bug when alarm runs.
 # Week 9, Thursday 9/May [David]
 -Tried new solution of 
 	useLibrary 'org.apache.http.legacy' 
+
+# Week 9, Friday 10/May [David]
+had problem of emulator-5554 offline
 # Week 9, Saterday 11/May [David]
 Weather function is fixed. 
 # Week 9, Saterday 11/May [David]
