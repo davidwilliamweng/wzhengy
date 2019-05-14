@@ -1,4 +1,7 @@
-###########Project structure description
+﻿SID 215200634 SID 216235377
+zhengyang weng
+
+Project structure description
 ├── app                       		          								// application name
 │   └── assets                    		      								// resources
 │   └── build                    		      								// Temporary file of source code compilation
